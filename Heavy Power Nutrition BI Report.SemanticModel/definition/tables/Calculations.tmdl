@@ -1,67 +1,64 @@
 table Calculations
 	lineageTag: 99dcda0b-6962-45b4-a2f2-85a12c7ae836
 
-	column Column1
-		dataType: string
-		lineageTag: 692ffee0-eb8b-42a6-ad44-a12759125faf
-		summarizeBy: none
-		sourceColumn: Column1
-
-		annotation SummarizationSetBy = Automatic
-
 	measure Revenue = SUM(Fact_Sales[Net_Sales])
+		lineageTag: 5bb70b7a-bbdf-4fd4-b157-42ee5a3fcad3
 
 	measure 'Total Cost' =
-		SUMX(
-			Fact_Sales,
-			Fact_Sales[UnitCost] * Fact_Sales[OrderQuantity]
-		)
+			SUMX(
+				Fact_Sales,
+				Fact_Sales[UnitCost] * Fact_Sales[OrderQuantity]
+			)
+		lineageTag: f9d42b6d-c1a8-47b1-bce9-6d965b7afba1
 
 	measure 'Gross Profit' = [Revenue] - [Total Cost]
+		lineageTag: e2cffd0e-5074-48f5-8789-b8d63331f8e8
 
-	measure 'Gross Margin %' =
-		DIVIDE([Gross Profit], [Revenue])
+	measure 'Gross Margin %' = DIVIDE([Gross Profit], [Revenue])
+		lineageTag: 1feb47a2-800c-4b04-a078-21602219ce25
 
-	measure 'Total Return Amount' =
-		SUM(Fact_Returns[ReturnAmount])
+	measure 'Total Return Amount' = SUM(Fact_Returns[ReturnAmount])
+		lineageTag: b6302b48-6c0a-4a58-b678-11aaa1153c16
 
-	measure 'Return Rate %' =
-		DIVIDE([Total Return Amount], [Revenue])
+	measure 'Return Rate %' = DIVIDE([Total Return Amount], [Revenue])
+		lineageTag: 8db30ec2-4149-4226-9f64-d4b7f0b3248a
 
-	measure '# Orders' =
-		DISTINCTCOUNT(Fact_Sales[SalesOrderNumber])
+	measure '# Orders' = DISTINCTCOUNT(Fact_Sales[SalesOrderNumber])
+		lineageTag: a00f4638-3a46-48b5-bf3d-0f5fce5acec8
 
-	measure '# Customers' =
-		DISTINCTCOUNT(Fact_Sales[CustomerKey])
+	measure '# Customers' = DISTINCTCOUNT(Fact_Sales[CustomerKey])
+		lineageTag: 47ea5858-e61c-40ad-bb1b-0d4e0ed45b32
 
-	measure 'Average Order Value' =
-		DIVIDE([Revenue], [# Orders])
+	measure 'Average Order Value' = DIVIDE([Revenue], [# Orders])
+		lineageTag: 194014fd-f344-4d18-b667-69192cf4fbe8
 
-	measure 'Average Revenue Per Customer' =
-		DIVIDE([Revenue], [# Customers])
+	measure 'Average Revenue Per Customer' = DIVIDE([Revenue], [# Customers])
+		lineageTag: 7812f37a-463b-4fc5-aae5-6ef99e956a0e
 
-	measure 'Average Revenue Per Order' =
-		[Average Order Value]
+	measure 'Average Revenue Per Order' = [Average Order Value]
+		lineageTag: 6659eddb-b26a-4f8e-bd3b-dfbe0dfeb6e8
 
-	measure 'Average Cost Per Order' =
-		DIVIDE([Total Cost], [# Orders])
+	measure 'Average Cost Per Order' = DIVIDE([Total Cost], [# Orders])
+		lineageTag: c50adce1-034f-49d4-be84-1f3b716da518
 
-	measure 'Net Revenue' =
-		[Revenue] - [Total Return Amount]
+	measure 'Net Revenue' = [Revenue] - [Total Return Amount]
+		lineageTag: 4985fcb0-da9e-4576-8652-1fd5bffa260e
 
-	measure 'Net Revenue Per Order' =
-		DIVIDE([Net Revenue], [# Orders])
+	measure 'Net Revenue Per Order' = DIVIDE([Net Revenue], [# Orders])
+		lineageTag: fe29b19b-57ee-498b-9741-9bddfea6c3c9
 
-	measure 'Average Order Quantity' =
-		AVERAGE(Fact_Sales[OrderQuantity])
+	measure 'Average Order Quantity' = AVERAGE(Fact_Sales[OrderQuantity])
+		lineageTag: 25be8a16-16b6-4424-a20e-c9520e9557f4
 
 	partition Calculations = m
 		mode: import
 		source =
-			let
-			    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
-			    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
-			in
-			    #"Changed Type"
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
 
 	annotation PBI_ResultType = Table
+
