@@ -1,8 +1,3 @@
-# Data-Engineering-Data-Analysis--Heavy-Power-Nutrition-End-to-End-Data-Engineering-Project
- Built a complete data pipeline for a Brazilian nutrition company. Extracted data from SQL Server, loaded it into a Staging Area, performed data transformation and denormalization, designed a Data Warehouse (Star Schema), and connected it to Power BI for analytics. GitHub was used for version control and centralized project management.
-
-ممكن تحطه في GitHub بالشكل الاحترافي ده:
-
 # Heavy Power Nutrition – End-to-End Data Engineering & Analytics Project
 
 ## Project Overview
