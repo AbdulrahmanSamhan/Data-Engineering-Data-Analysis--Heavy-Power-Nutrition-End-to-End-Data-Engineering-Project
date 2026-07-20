@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "e42e4752921079a109e5",
+  "position": {
+    "x": 108.83209935514688,
+    "y": 258.01767375208982,
+    "z": 2,
+    "height": 176.08789109147361,
+    "width": 226.22402674946264
+  },
+  "visual": {
+    "visualType": "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "query": {
+      "queryState": {
+        "mainMeasure": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calculations"
+                    }
+                  },
+                  "Property": "YOY (Revenue)"
+                }
+              },
+              "queryRef": "Calculations.YOY (Revenue)",
+              "nativeQueryRef": "YOY (Revenue)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

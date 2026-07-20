@@ -50,6 +50,9 @@ table Calculations
 	measure 'Average Order Quantity' = AVERAGE(Fact_Sales[OrderQuantity])
 		lineageTag: 25be8a16-16b6-4424-a20e-c9520e9557f4
 
+	measure 'YOY (Revenue)' = YOY_Diff([Revenue])
+		lineageTag: 447b10d2-c397-4d8c-9d71-c4724d95f064
+
 	partition Calculations = m
 		mode: import
 		source =

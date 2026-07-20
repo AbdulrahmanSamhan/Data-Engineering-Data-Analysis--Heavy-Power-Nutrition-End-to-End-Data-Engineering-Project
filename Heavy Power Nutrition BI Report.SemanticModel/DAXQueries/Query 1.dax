@@ -1,0 +1,40 @@
+DEFINE
+	FUNCTION YOY_Diff = (_measure: EXPR) =>
+		VAR CY =
+		_measure
+
+		VAR LY =
+		CALCULATE(
+			_measure,
+			DATEADD(
+				Calender[Date],
+				-1,
+				YEAR
+			)
+		)
+
+		VAR Diff =
+		DIVIDE(
+			CY - LY,
+			LY
+		)
+
+		VAR Design =
+		FORMAT(
+			Diff,
+			"0.0%;-0.0%"
+		)
+
+		RETURN
+			IF(
+				AND(
+					ISFILTERED(Calender[Year]),
+					SELECTEDVALUE(Calender[Year]) <> 2010
+				),
+				IF(
+					Diff > 0,
+					UNICHAR(129029) & " " & Design,
+					UNICHAR(129031) & " " & Design
+				),
+				""
+			)
