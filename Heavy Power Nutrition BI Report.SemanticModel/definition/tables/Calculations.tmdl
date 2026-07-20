@@ -9,6 +9,36 @@ table Calculations
 
 		annotation SummarizationSetBy = Automatic
 
+	column Revenue = SUM(Fact_Sales[Net_Sales])
+
+	column Total Cost = SUMX(Fact_Sales, Fact_Sales[UnitCost] * Fact_Sales[OrderQuantity])
+
+	column Gross Profit = [Revenue] - [Total Cost]
+
+	column Gross Margin % = DIVIDE([Gross Profit], [Revenue])
+
+	column Total Return Amount = SUM(Fact_Returns[ReturnAmount])
+
+	column Return Rate % = DIVIDE([Total Return Amount], [Revenue])
+
+	column '# Orders' = DISTINCTCOUNT(Fact_Sales[SalesOrderNumber])
+
+	column '# Customers' = DISTINCTCOUNT(Fact_Sales[CustomerKey])
+
+	column 'Average Order Value' = DIVIDE([Revenue], [# Orders])
+
+	column 'Average Revenue Per Customer' = DIVIDE([Revenue], [# Customers])
+
+	column 'Average Revenue Per Order' = [Average Order Value]
+
+	column 'Average Cost Per Order' = DIVIDE([Total Cost], [# Orders])
+
+	column 'Net Revenue' = [Revenue] - [Total Return Amount]
+
+	column 'Net Revenue Per Order' = DIVIDE([Net Revenue], [# Orders])
+
+	column 'Average Order Quantity' = AVERAGE(Fact_Sales[OrderQuantity])
+
 	partition Calculations = m
 		mode: import
 		source =
