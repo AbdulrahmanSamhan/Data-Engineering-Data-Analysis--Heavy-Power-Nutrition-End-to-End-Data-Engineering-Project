@@ -9,44 +9,59 @@ table Calculations
 
 		annotation SummarizationSetBy = Automatic
 
-	column Revenue = SUM(Fact_Sales[Net_Sales])
+	measure Revenue = SUM(Fact_Sales[Net_Sales])
 
-	column Total Cost = SUMX(Fact_Sales, Fact_Sales[UnitCost] * Fact_Sales[OrderQuantity])
+	measure 'Total Cost' =
+		SUMX(
+			Fact_Sales,
+			Fact_Sales[UnitCost] * Fact_Sales[OrderQuantity]
+		)
 
-	column Gross Profit = [Revenue] - [Total Cost]
+	measure 'Gross Profit' = [Revenue] - [Total Cost]
 
-	column Gross Margin % = DIVIDE([Gross Profit], [Revenue])
+	measure 'Gross Margin %' =
+		DIVIDE([Gross Profit], [Revenue])
 
-	column Total Return Amount = SUM(Fact_Returns[ReturnAmount])
+	measure 'Total Return Amount' =
+		SUM(Fact_Returns[ReturnAmount])
 
-	column Return Rate % = DIVIDE([Total Return Amount], [Revenue])
+	measure 'Return Rate %' =
+		DIVIDE([Total Return Amount], [Revenue])
 
-	column '# Orders' = DISTINCTCOUNT(Fact_Sales[SalesOrderNumber])
+	measure '# Orders' =
+		DISTINCTCOUNT(Fact_Sales[SalesOrderNumber])
 
-	column '# Customers' = DISTINCTCOUNT(Fact_Sales[CustomerKey])
+	measure '# Customers' =
+		DISTINCTCOUNT(Fact_Sales[CustomerKey])
 
-	column 'Average Order Value' = DIVIDE([Revenue], [# Orders])
+	measure 'Average Order Value' =
+		DIVIDE([Revenue], [# Orders])
 
-	column 'Average Revenue Per Customer' = DIVIDE([Revenue], [# Customers])
+	measure 'Average Revenue Per Customer' =
+		DIVIDE([Revenue], [# Customers])
 
-	column 'Average Revenue Per Order' = [Average Order Value]
+	measure 'Average Revenue Per Order' =
+		[Average Order Value]
 
-	column 'Average Cost Per Order' = DIVIDE([Total Cost], [# Orders])
+	measure 'Average Cost Per Order' =
+		DIVIDE([Total Cost], [# Orders])
 
-	column 'Net Revenue' = [Revenue] - [Total Return Amount]
+	measure 'Net Revenue' =
+		[Revenue] - [Total Return Amount]
 
-	column 'Net Revenue Per Order' = DIVIDE([Net Revenue], [# Orders])
+	measure 'Net Revenue Per Order' =
+		DIVIDE([Net Revenue], [# Orders])
 
-	column 'Average Order Quantity' = AVERAGE(Fact_Sales[OrderQuantity])
+	measure 'Average Order Quantity' =
+		AVERAGE(Fact_Sales[OrderQuantity])
 
 	partition Calculations = m
 		mode: import
 		source =
-				let
-				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
-				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
-				in
-				    #"Changed Type"
+			let
+			    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+			    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+			in
+			    #"Changed Type"
 
 	annotation PBI_ResultType = Table
-
