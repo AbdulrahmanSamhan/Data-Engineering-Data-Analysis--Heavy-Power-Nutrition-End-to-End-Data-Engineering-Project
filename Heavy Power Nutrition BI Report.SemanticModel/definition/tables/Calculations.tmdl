@@ -2,6 +2,7 @@ table Calculations
 	lineageTag: 99dcda0b-6962-45b4-a2f2-85a12c7ae836
 
 	measure Revenue = SUM(Fact_Sales[Net_Sales])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 5bb70b7a-bbdf-4fd4-b157-42ee5a3fcad3
 
 	measure 'Total Cost' =
@@ -52,6 +53,34 @@ table Calculations
 
 	measure 'YOY (Revenue)' = YOY_Diff([Revenue])
 		lineageTag: 447b10d2-c397-4d8c-9d71-c4724d95f064
+
+	measure 'YOY (Total Cost)' = YOY_Diff([Total Cost])
+
+	measure 'YOY (Gross Profit)' = YOY_Diff([Gross Profit])
+
+	measure 'YOY (Gross Margin %)' = YOY_Diff([Gross Margin %])
+
+	measure 'YOY (Total Return Amount)' = YOY_Diff([Total Return Amount])
+
+	measure 'YOY (Return Rate %)' = YOY_Diff([Return Rate %])
+
+	measure 'YOY (# Orders)' = YOY_Diff([# Orders])
+
+	measure 'YOY (# Customers)' = YOY_Diff([# Customers])
+
+	measure 'YOY (Average Order Value)' = YOY_Diff([Average Order Value])
+
+	measure 'YOY (Average Revenue Per Customer)' = YOY_Diff([Average Revenue Per Customer])
+
+	measure 'YOY (Average Revenue Per Order)' = YOY_Diff([Average Revenue Per Order])
+
+	measure 'YOY (Average Cost Per Order)' = YOY_Diff([Average Cost Per Order])
+
+	measure 'YOY (Net Revenue)' = YOY_Diff([Net Revenue])
+
+	measure 'YOY (Net Revenue Per Order)' = YOY_Diff([Net Revenue Per Order])
+
+	measure 'YOY (Average Order Quantity)' = YOY_Diff([Average Order Quantity])
 
 	partition Calculations = m
 		mode: import
