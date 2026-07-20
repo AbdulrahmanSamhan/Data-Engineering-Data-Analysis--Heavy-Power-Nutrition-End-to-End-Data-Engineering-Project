@@ -1,0 +1,72 @@
+table Dim_Product
+	lineageTag: a815f4b7-1f05-4d25-b5e3-8eddafb712bb
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a5b281a0-4200-406d-8cc2-b258eb79c819
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: f5c8bb54-8262-483e-9c4a-bc0e61de6842
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSubcategoryKey
+		dataType: string
+		lineageTag: 075872ba-0b52-4003-85f8-5fb29d448f8b
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		dataType: string
+		lineageTag: 189216b9-9fda-4f49-be03-7dd7b5af7a8a
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column Detail
+		dataType: string
+		lineageTag: eec4862b-60d4-4e89-a4b2-dd3f1d9ad1dd
+		summarizeBy: none
+		sourceColumn: Detail
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubcategoryName
+		dataType: string
+		lineageTag: b3e15266-945b-425d-b085-0703acdba658
+		summarizeBy: none
+		sourceColumn: SubcategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryName
+		dataType: string
+		lineageTag: 50a96bce-6784-4c31-9809-4fff4e325e9c
+		summarizeBy: none
+		sourceColumn: CategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Product = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("(localdb)\MSSQLLocalDB"),
+				    HeavyPowerNutrition_DWH = Source{[Name="HeavyPowerNutrition_DWH"]}[Data],
+				    dbo_Dim_Product = HeavyPowerNutrition_DWH{[Schema="dbo",Item="Dim_Product"]}[Data]
+				in
+				    dbo_Dim_Product
+
+	annotation PBI_ResultType = Table
+

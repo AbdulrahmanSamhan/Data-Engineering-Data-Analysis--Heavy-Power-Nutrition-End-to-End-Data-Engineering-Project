@@ -1,0 +1,56 @@
+table Calender
+	lineageTag: 4b2b0925-554f-4e6b-8712-1b486fbe92b4
+
+	column Date
+		formatString: General Date
+		lineageTag: c98eef6b-dc8d-47c7-8447-cdddbf2f560d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: fab17b0b-796a-4c08-a591-4d24970ebd7a
+			defaultHierarchy: LocalDateTable_851809a2-f12f-4cbe-a28f-5ebef344cedc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day = DAY(Calender[Date])
+		formatString: 0
+		lineageTag: 7c28569a-6b08-45f3-8341-52ddfd80dba8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number' = MONTH(Calender[Date])
+		formatString: 0
+		lineageTag: ce738abb-4996-4e0c-9391-a926fe02336c
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name' = FORMAT(Calender[Date],"mmm")
+		lineageTag: be310b0d-38ca-4ddc-a453-4dcac25686f2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR(Calender[Date])
+		formatString: 0
+		lineageTag: ea7951a8-09b2-4ce4-a7f7-d73d1640ea9f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter = "Q-"&QUARTER(Calender[Date])
+		lineageTag: c32fedf6-9764-405c-897b-ef216205b694
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calender = calculated
+		mode: import
+		source = CALENDAR("1/1/2010","31/12/2013")
+
+	annotation PBI_Id = 541af7583df640ec9ef23abc5ea7ce99
+

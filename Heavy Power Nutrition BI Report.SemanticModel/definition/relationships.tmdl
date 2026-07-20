@@ -1,0 +1,40 @@
+relationship abc226ce-9120-486a-9dbe-aaa946270228
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Returns.OrderDate
+	toColumn: LocalDateTable_76d00486-a5d1-40ea-b8e9-73f20979aaae.Date
+
+relationship 1807e6fc-1d50-4b90-8ea0-12d44bbf6486
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Sales.DueDate
+	toColumn: LocalDateTable_7e29cf69-2f84-4e63-964e-29589d4522ca.Date
+
+relationship a34582f9-1eb8-4854-976f-c391250859f8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Sales.ShipDate
+	toColumn: LocalDateTable_c082e9e2-8e10-4880-b1ce-bc2a73a5a1d4.Date
+
+relationship AutoDetected_5061628c-7ff5-49a9-a2d2-e51116f2ef9d
+	fromColumn: Fact_Returns.CustomerKey
+	toColumn: Dim_Customers.CustomerKey
+
+relationship AutoDetected_c27aca3b-5079-4f5a-89fb-363fc3eb0c62
+	fromColumn: Fact_Sales.CustomerKey
+	toColumn: Dim_Customers.CustomerKey
+
+relationship AutoDetected_0e2849c7-9ba0-4fdf-b8e4-5330fdb7ccae
+	fromColumn: Fact_Returns.ProductKey
+	toColumn: Dim_Product.ProductKey
+
+relationship fab17b0b-796a-4c08-a591-4d24970ebd7a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calender.Date
+	toColumn: LocalDateTable_851809a2-f12f-4cbe-a28f-5ebef344cedc.Date
+
+relationship b633d2f4-14f6-7d72-876b-4d7c9137835a
+	fromColumn: Fact_Returns.ReturnDate
+	toColumn: Calender.Date
+
+relationship 31b160e9-b6c9-f84d-2f53-cb6c54fb2408
+	fromColumn: Fact_Sales.OrderDate
+	toColumn: Calender.Date
+

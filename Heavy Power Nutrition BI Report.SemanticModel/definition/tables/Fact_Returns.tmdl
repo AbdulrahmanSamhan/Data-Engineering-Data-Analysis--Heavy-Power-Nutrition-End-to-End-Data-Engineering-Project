@@ -1,0 +1,97 @@
+table Fact_Returns
+	lineageTag: 0cee6b2a-f824-41ed-818c-8a54731f85e9
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b9f503e-ea54-4315-b97a-784f55a20da7
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e4fa2e0-d081-4140-8e7d-c21f5c108b21
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 054ac2f1-0fd5-4c5f-bb05-2cc2b5ef546b
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		variation Variation
+			isDefault
+			relationship: abc226ce-9120-486a-9dbe-aaa946270228
+			defaultHierarchy: LocalDateTable_76d00486-a5d1-40ea-b8e9-73f20979aaae.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ReturnDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3808a430-b99a-459b-8e25-7dceae662237
+		summarizeBy: none
+		sourceColumn: ReturnDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ReturnQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: fd03ed23-2293-4636-951e-2f121d8c60e1
+		summarizeBy: sum
+		sourceColumn: ReturnQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnAmount
+		dataType: double
+		lineageTag: 5ae9d11d-fc2c-48e9-b210-efee3cae5462
+		summarizeBy: sum
+		sourceColumn: ReturnAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 37808175-6a98-42d3-a6f5-50d3da8685dd
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SalesOrderNumber
+		dataType: string
+		lineageTag: 5ce35667-1fdd-4ea7-b8f8-893551f993f1
+		summarizeBy: none
+		sourceColumn: SalesOrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Returns = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("(localdb)\MSSQLLocalDB"),
+				    HeavyPowerNutrition_DWH = Source{[Name="HeavyPowerNutrition_DWH"]}[Data],
+				    dbo_Fact_Returns = HeavyPowerNutrition_DWH{[Schema="dbo",Item="Fact_Returns"]}[Data]
+				in
+				    dbo_Fact_Returns
+
+	annotation PBI_ResultType = Table
+

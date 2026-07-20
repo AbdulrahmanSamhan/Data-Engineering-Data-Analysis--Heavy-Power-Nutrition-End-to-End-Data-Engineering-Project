@@ -1,0 +1,88 @@
+table Dim_Customers
+	lineageTag: f6dbc90e-2e72-4b88-be51-ce9c7e8d36ce
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 587e5705-898f-4abf-9fac-54bdff60a41e
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer
+		dataType: string
+		lineageTag: 68074264-ba07-4f51-897c-8f0b9cad5c8d
+		summarizeBy: none
+		sourceColumn: Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column BusinessType
+		dataType: string
+		lineageTag: 3616cb2f-acf6-445c-a1f2-410850ccef95
+		summarizeBy: none
+		sourceColumn: BusinessType
+
+		annotation SummarizationSetBy = Automatic
+
+	column CityName
+		dataType: string
+		lineageTag: 7f4323ef-e1c5-45ac-855b-fc629dcc6d62
+		summarizeBy: none
+		sourceColumn: CityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateCode
+		dataType: string
+		lineageTag: 5d97f1e0-e4e9-493c-b91c-a87181f86360
+		summarizeBy: none
+		sourceColumn: StateCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateName
+		dataType: string
+		lineageTag: aa596d33-de4e-4106-a2da-a78faecc44c4
+		summarizeBy: none
+		sourceColumn: StateName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryName
+		dataType: string
+		lineageTag: 3fcb2fed-f0e2-4142-99a7-e19c52af456f
+		summarizeBy: none
+		sourceColumn: CountryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 0eadebb6-b141-4e91-83f0-0db2250a88e2
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Continent
+		dataType: string
+		lineageTag: 3852b956-09c4-4abf-9307-0388bc2d3868
+		summarizeBy: none
+		sourceColumn: Continent
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Customers = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("(localdb)\MSSQLLocalDB"),
+				    HeavyPowerNutrition_DWH = Source{[Name="HeavyPowerNutrition_DWH"]}[Data],
+				    dbo_Dim_Customers = HeavyPowerNutrition_DWH{[Schema="dbo",Item="Dim_Customers"]}[Data]
+				in
+				    dbo_Dim_Customers
+
+	annotation PBI_ResultType = Table
+
